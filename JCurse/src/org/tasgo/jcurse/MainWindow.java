@@ -116,6 +116,9 @@ public class MainWindow {
 		horizontalBox.add(verticalBox_1);
 		
 		JTextPane infoPane = new JTextPane();
+		infoPane.setContentType("text/html");
+		infoPane.setText("<html><center>\r\n<b>Minecraft</b><br>\r\n143 Mods\r\n</center></html>\r\n");
+		infoPane.setEditable(false);
 		verticalBox_1.add(infoPane);
 		
 		JButton btnStart = new JButton("Start Game");
