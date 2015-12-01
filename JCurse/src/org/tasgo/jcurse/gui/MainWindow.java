@@ -1,4 +1,4 @@
-package org.tasgo.jcurse;
+package org.tasgo.jcurse.gui;
 
 import java.awt.EventQueue;
 
@@ -92,9 +92,6 @@ public class MainWindow {
 		Box verticalBox = Box.createVerticalBox();
 		horizontalBox.add(verticalBox);
 		
-		Component verticalGlue = Box.createVerticalGlue();
-		verticalBox.add(verticalGlue);
-		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Test1", "Test2", "Test3", "Test4", "Test5"}));
 		comboBox.setMaximumSize(new Dimension(32767, comboBox.getPreferredSize().height));
@@ -116,6 +113,7 @@ public class MainWindow {
 		horizontalBox.add(verticalBox_1);
 		
 		JTextPane infoPane = new JTextPane();
+		infoPane.setBackground(new Color(240, 240, 240));
 		infoPane.setContentType("text/html");
 		infoPane.setText("<html><center>\r\n<b>Minecraft</b><br>\r\n143 Mods\r\n</center></html>\r\n");
 		infoPane.setEditable(false);
