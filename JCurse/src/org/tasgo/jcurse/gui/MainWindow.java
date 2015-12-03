@@ -1,34 +1,28 @@
 package org.tasgo.jcurse.gui;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import javax.swing.JTable;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JComboBox;
+import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
-import javax.swing.Box;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import java.awt.Component;
-import java.awt.Dimension;
-
-import javax.swing.JList;
-import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.JScrollPane;
-import javax.swing.UIManager;
+import javax.swing.Box;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.BoxLayout;
+import javax.swing.JTextPane;
 import java.awt.Color;
-import javax.swing.JScrollBar;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
+import java.awt.Component;
+import javax.swing.JScrollPane;
 
-public class MainWindow {
+public class MainWindow extends JFrame {
 
-	private JFrame frmJcurse;
+	private JPanel contentPane;
+	private JScrollPane modPane;
 	private JTable modTable;
 
 	/**
@@ -38,8 +32,8 @@ public class MainWindow {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainWindow window = new MainWindow();
-					window.frmJcurse.setVisible(true);
+					MainWindow frame = new MainWindow();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,28 +42,23 @@ public class MainWindow {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public MainWindow() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frmJcurse = new JFrame();
-		frmJcurse.setTitle("JCurse");
-		frmJcurse.setBounds(100, 100, 869, 551);
-		frmJcurse.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmJcurse.getContentPane().setLayout(new BoxLayout(frmJcurse.getContentPane(), BoxLayout.Y_AXIS));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 682, 459);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
-		frmJcurse.getContentPane().add(splitPane);
+		splitPane.resetToPreferredSizes();
+		contentPane.add(splitPane);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		splitPane.setLeftComponent(scrollPane);
+		modPane = new JScrollPane();
+		splitPane.setLeftComponent(modPane);
 		
 		modTable = new JTable();
 		modTable.setModel(new DefaultTableModel(
@@ -84,7 +73,7 @@ public class MainWindow {
 				"New column", "New column", "New column", "New column", "New column"
 			}
 		));
-		scrollPane.setViewportView(modTable);
+		modPane.setViewportView(modTable);
 		
 		Box horizontalBox = Box.createHorizontalBox();
 		splitPane.setRightComponent(horizontalBox);
@@ -92,47 +81,47 @@ public class MainWindow {
 		Box verticalBox = Box.createVerticalBox();
 		horizontalBox.add(verticalBox);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Test1", "Test2", "Test3", "Test4", "Test5"}));
-		comboBox.setMaximumSize(new Dimension(32767, comboBox.getPreferredSize().height));
-		verticalBox.add(comboBox);
+		JComboBox profileBox = new JComboBox();
+		profileBox.setMaximumSize(new Dimension(32767, profileBox.getPreferredSize().height));
+		verticalBox.add(profileBox);
 		
-		Box horizontalBox_2 = Box.createHorizontalBox();
-		verticalBox.add(horizontalBox_2);
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		verticalBox.add(horizontalBox_1);
 		
-		JButton btnNewProfile = new JButton("New");
-		horizontalBox_2.add(btnNewProfile);
+		JButton btnNew = new JButton("New");
+		btnNew.addActionListener(e -> {
+			System.out.println(new NewDialog().get().profileType);
+		});
+		horizontalBox_1.add(btnNew);
 		
-		JButton btnEditProfile = new JButton("Edit");
-		horizontalBox_2.add(btnEditProfile);
+		JButton btnEdit = new JButton("Edit");
+		horizontalBox_1.add(btnEdit);
 		
-		JButton btnDelProfile = new JButton("Delete");
-		horizontalBox_2.add(btnDelProfile);
+		JButton btnDelete = new JButton("Delete");
+		horizontalBox_1.add(btnDelete);
 		
 		Box verticalBox_1 = Box.createVerticalBox();
 		horizontalBox.add(verticalBox_1);
 		
 		JTextPane infoPane = new JTextPane();
-		infoPane.setBackground(new Color(240, 240, 240));
+		infoPane.setBackground(Color.WHITE);
 		infoPane.setContentType("text/html");
-		infoPane.setText("<html><center>\r\n<b>Minecraft</b><br>\r\n143 Mods\r\n</center></html>\r\n");
 		infoPane.setEditable(false);
 		verticalBox_1.add(infoPane);
 		
-		JButton btnStart = new JButton("Start Game");
-		btnStart.setAlignmentX(0.5f);
+		JButton btnStart = new JButton("Start");
+		btnStart.setAlignmentX(Component.CENTER_ALIGNMENT);
 		verticalBox_1.add(btnStart);
 		
 		JPanel panel = new JPanel();
 		horizontalBox.add(panel);
 		
-		JButton btnAddMod = new JButton("+");
-		panel.add(btnAddMod);
-		btnAddMod.setToolTipText("Add mod");
+		JButton btnAdd = new JButton("+");
+		panel.add(btnAdd);
 		
-		JButton btnDelMod = new JButton("-");
-		panel.add(btnDelMod);
-		btnDelMod.setToolTipText("Remove mod");
+		JButton btnDel = new JButton("-");
+		panel.add(btnDel);
+		splitPane.setDividerLocation(325);
 	}
 
 }

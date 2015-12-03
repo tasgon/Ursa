@@ -1,73 +1,127 @@
 package org.tasgo.jcurse.gui;
 
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JDialog;
+import javax.swing.JRadioButton;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.Box;
+import javax.swing.JComboBox;
+import java.awt.Component;
+import javax.swing.JTextField;
+
+import org.omg.CORBA.VersionSpecHelper;
+import org.tasgo.jcurse.Profile;
+import org.tasgo.jcurse.Profile.ProfileType;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
-import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
-public class NewDialog extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
-	private JTextField modpackLink;
+public class NewDialog extends JDialog implements ActionListener {
+	private JTextField modpackField;
+	private JComboBox<String> versionBox;
+	private ProfileType profileType;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		try {
-			NewDialog dialog = new NewDialog();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NewDialog dialog = new NewDialog();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Start the dialog and wait for it to return a new Profile.
+	 * @return a new profile with the selected profileType and data
+	 */
+	public Profile get() {
+		setModal(true);
+		setVisible(true);
+		if (profileType == ProfileType.VANILLA)
+			return new Profile(profileType, (String) versionBox.getSelectedItem());
+		else
+			return new Profile(profileType, modpackField.getText());
 	}
 
 	/**
 	 * Create the dialog.
 	 */
 	public NewDialog() {
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-		{
-			JComboBox versionBox = new JComboBox();
-			versionBox.setModel(new DefaultComboBoxModel(new String[] {"Choose version..."}));
-			versionBox.setMaximumSize(new Dimension(32767, versionBox.getPreferredSize().height));
-			contentPanel.add(versionBox);
+		setBounds(100, 100, 396, 137);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		Box horizontalBox = Box.createHorizontalBox();
+		horizontalBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+		getContentPane().add(horizontalBox);
+		
+		JRadioButton rdVersion = new JRadioButton("Version:");
+		rdVersion.addActionListener(this);
+		horizontalBox.add(rdVersion);
+		
+		versionBox = new JComboBox<String>();
+		versionBox.setEnabled(false);
+		versionBox.setMaximumSize(new Dimension(128, versionBox.getPreferredSize().height));
+		horizontalBox.add(versionBox);
+		
+		Box horizontalBox_1 = Box.createHorizontalBox();
+		horizontalBox_1.setAlignmentX(Component.LEFT_ALIGNMENT);
+		getContentPane().add(horizontalBox_1);
+		
+		JRadioButton rdModpack = new JRadioButton("Modpack URL:");
+		rdModpack.addActionListener(this);
+		horizontalBox_1.add(rdModpack);
+		
+		modpackField = new JTextField();
+		modpackField.setEnabled(false);
+		modpackField.setMaximumSize(new Dimension(256, modpackField.getPreferredSize().height));
+		horizontalBox_1.add(modpackField);
+		modpackField.setColumns(10);
+		
+		ButtonGroup rdGroup = new ButtonGroup();
+		rdGroup.add(rdVersion);
+		rdGroup.add(rdModpack);
+		
+		JPanel panel = new JPanel();
+		panel.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+		panel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		FlowLayout flowLayout = (FlowLayout) panel.getLayout();
+		flowLayout.setAlignment(FlowLayout.RIGHT);
+		getContentPane().add(panel);
+		
+		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(e -> {
+			setVisible(false);
+			dispose();
+		});
+		panel.add(btnOk);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Version:")) {
+			versionBox.setEnabled(true);
+			modpackField.setEnabled(false);
+			profileType = ProfileType.VANILLA;
 		}
-		{
-			modpackLink = new JTextField();
-			contentPanel.add(modpackLink);
-			modpackLink.setColumns(1);
-			modpackLink.setMaximumSize(new Dimension(32767, modpackLink.getPreferredSize().height));
-		}
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		else {
+			versionBox.setEnabled(false);
+			modpackField.setEnabled(true);
+			profileType = ProfileType.MODPACK;
 		}
 	}
-
 }
