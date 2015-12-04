@@ -48,6 +48,7 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
+		setTitle("JCurse");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 682, 459);
 		contentPane = new JPanel();
@@ -98,9 +99,15 @@ public class MainWindow extends JFrame {
 		infoPane.setEditable(false);
 		verticalBox_1.add(infoPane);
 		
+		Box horizontalBox_2 = Box.createHorizontalBox();
+		verticalBox_1.add(horizontalBox_2);
+		
+		JComboBox comboBox = new JComboBox();
+		horizontalBox_2.add(comboBox);
+		
 		JButton btnStart = new JButton("Start");
+		horizontalBox_2.add(btnStart);
 		btnStart.setAlignmentX(Component.CENTER_ALIGNMENT);
-		verticalBox_1.add(btnStart);
 		
 		JPanel panel = new JPanel();
 		horizontalBox.add(panel);

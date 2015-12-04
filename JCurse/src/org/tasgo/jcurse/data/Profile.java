@@ -4,9 +4,10 @@ public class Profile {
 	public static enum ProfileType { VANILLA, MODPACK }
 	
 	public ProfileType profileType;
-	public String data;
+	public String name, data;
 	
-	public Profile(ProfileType typein, String datain) {
+	public Profile(String namein, ProfileType typein, String datain) {
+		name = namein;
 		data = datain;
 		profileType = typein;
 	}

@@ -29,7 +29,7 @@ public class NewDialog extends JDialog implements ActionListener {
 	private JTextField modpackField;
 	private JComboBox<String> versionBox;
 	private ProfileType profileType;
-	private JTextField textField;
+	private JTextField nameField;
 
 	/**
 	 * Launch the application.
@@ -55,10 +55,11 @@ public class NewDialog extends JDialog implements ActionListener {
 	public Profile get() {
 		setModal(true);
 		setVisible(true);
+		String name = nameField.getText();
 		if (profileType == ProfileType.VANILLA)
-			return new Profile(profileType, (String) versionBox.getSelectedItem());
+			return new Profile(name, profileType, (String) versionBox.getSelectedItem());
 		else
-			return new Profile(profileType, modpackField.getText());
+			return new Profile(name, profileType, modpackField.getText());
 	}
 
 	/**
@@ -75,9 +76,9 @@ public class NewDialog extends JDialog implements ActionListener {
 		JLabel lblName = new JLabel("Name:");
 		horizontalBox_2.add(lblName);
 		
-		textField = new JTextField();
-		horizontalBox_2.add(textField);
-		textField.setColumns(10);
+		nameField = new JTextField();
+		horizontalBox_2.add(nameField);
+		nameField.setColumns(10);
 		
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setAlignmentX(Component.LEFT_ALIGNMENT);
