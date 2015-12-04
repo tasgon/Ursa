@@ -1,4 +1,4 @@
-package org.tasgo.jcurse;
+package org.tasgo.jcurse.data;
 
 public class Profile {
 	public static enum ProfileType { VANILLA, MODPACK }

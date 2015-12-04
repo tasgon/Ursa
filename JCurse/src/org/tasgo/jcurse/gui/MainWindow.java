@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import org.tasgo.jcurse.data.ModTableModel;
+
 import javax.swing.Box;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -61,18 +64,7 @@ public class MainWindow extends JFrame {
 		splitPane.setLeftComponent(modPane);
 		
 		modTable = new JTable();
-		modTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
-			}
-		));
+		modTable.setModel(new ModTableModel());
 		modPane.setViewportView(modTable);
 		
 		Box horizontalBox = Box.createHorizontalBox();
@@ -93,9 +85,6 @@ public class MainWindow extends JFrame {
 			System.out.println(new NewDialog().get().profileType);
 		});
 		horizontalBox_1.add(btnNew);
-		
-		JButton btnEdit = new JButton("Edit");
-		horizontalBox_1.add(btnEdit);
 		
 		JButton btnDelete = new JButton("Delete");
 		horizontalBox_1.add(btnDelete);

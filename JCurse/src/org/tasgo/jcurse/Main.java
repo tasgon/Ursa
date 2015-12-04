@@ -1,10 +1,13 @@
 package org.tasgo.jcurse;
 
-public class Main {
+import java.sql.Connection;
 
-	/*public static void main(String[] args) {
+public class Main {
+	Connection connection;
+	
+	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-	}*/
+	}
 
 }

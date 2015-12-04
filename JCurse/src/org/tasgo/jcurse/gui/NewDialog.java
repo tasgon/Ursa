@@ -17,17 +17,19 @@ import java.awt.Component;
 import javax.swing.JTextField;
 
 import org.omg.CORBA.VersionSpecHelper;
-import org.tasgo.jcurse.Profile;
-import org.tasgo.jcurse.Profile.ProfileType;
+import org.tasgo.jcurse.data.Profile;
+import org.tasgo.jcurse.data.Profile.ProfileType;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.FlowLayout;
+import javax.swing.JLabel;
 
 public class NewDialog extends JDialog implements ActionListener {
 	private JTextField modpackField;
 	private JComboBox<String> versionBox;
 	private ProfileType profileType;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -65,6 +67,17 @@ public class NewDialog extends JDialog implements ActionListener {
 	public NewDialog() {
 		setBounds(100, 100, 396, 137);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		Box horizontalBox_2 = Box.createHorizontalBox();
+		horizontalBox_2.setAlignmentX(Component.LEFT_ALIGNMENT);
+		getContentPane().add(horizontalBox_2);
+		
+		JLabel lblName = new JLabel("Name:");
+		horizontalBox_2.add(lblName);
+		
+		textField = new JTextField();
+		horizontalBox_2.add(textField);
+		textField.setColumns(10);
 		
 		Box horizontalBox = Box.createHorizontalBox();
 		horizontalBox.setAlignmentX(Component.LEFT_ALIGNMENT);
