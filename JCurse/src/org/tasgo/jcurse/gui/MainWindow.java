@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import org.tasgo.jcurse.data.ModTableModel;
 
@@ -20,29 +19,22 @@ import javax.swing.BoxLayout;
 import javax.swing.JTextPane;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
+
 import javax.swing.JScrollPane;
+import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.swing.SwingConstants;
 
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JScrollPane modPane;
 	private JTable modTable;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow frame = new MainWindow();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -54,11 +46,11 @@ public class MainWindow extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
 		
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.resetToPreferredSizes();
+		contentPane.setLayout(new BorderLayout(0, 0));
 		contentPane.add(splitPane);
 		
 		modPane = new JScrollPane();
@@ -112,12 +104,46 @@ public class MainWindow extends JFrame {
 		JPanel panel = new JPanel();
 		horizontalBox.add(panel);
 		
+		Box verticalBox_2 = Box.createVerticalBox();
+		panel.add(verticalBox_2);
+		
+		Box horizontalBox_3 = Box.createHorizontalBox();
+		verticalBox_2.add(horizontalBox_3);
+		
 		JButton btnAdd = new JButton("+");
-		panel.add(btnAdd);
+		btnAdd.setToolTipText("Add mod.");
+		horizontalBox_3.add(btnAdd);
 		
 		JButton btnDel = new JButton("-");
-		panel.add(btnDel);
+		btnDel.setToolTipText("Remove selected mod.");
+		horizontalBox_3.add(btnDel);
+		
+		JButton button = new JButton("\u0394");
+		button.setToolTipText("Edit selected mod.");
+		button.setAlignmentY(Component.TOP_ALIGNMENT);
+		button.setAlignmentX(Component.CENTER_ALIGNMENT);
+		verticalBox_2.add(button);
 		splitPane.setDividerLocation(325);
+		
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
+		
+		JLabel lblDonate = new JLabel("Donate!");
+		lblDonate.setForeground(Color.BLUE);
+		lblDonate.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		lblDonate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+					Desktop.getDesktop().browse(new URI("http://tasgo.wordpress.com/donate"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		panel_1.add(lblDonate);
+		
 	}
 
 }

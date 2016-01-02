@@ -3,6 +3,12 @@ package org.tasgo.jcurse.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import javax.swing.JDialog;
 import javax.swing.JRadioButton;
@@ -17,8 +23,12 @@ import java.awt.Component;
 import javax.swing.JTextField;
 
 import org.omg.CORBA.VersionSpecHelper;
+import org.tasgo.jcurse.api.Utility;
+import org.tasgo.jcurse.api.minecraft.MinecraftVersionList;
 import org.tasgo.jcurse.data.Profile;
 import org.tasgo.jcurse.data.Profile.ProfileType;
+
+import com.google.gson.JsonSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -30,23 +40,6 @@ public class NewDialog extends JDialog implements ActionListener {
 	private JComboBox<String> versionBox;
 	private ProfileType profileType;
 	private JTextField nameField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewDialog dialog = new NewDialog();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	/**
 	 * Start the dialog and wait for it to return a new Profile.
@@ -84,11 +77,12 @@ public class NewDialog extends JDialog implements ActionListener {
 		horizontalBox.setAlignmentX(Component.LEFT_ALIGNMENT);
 		getContentPane().add(horizontalBox);
 		
-		JRadioButton rdVersion = new JRadioButton("Version:");
+		JRadioButton rdVersion = new JRadioButton("Minecraft version:");
 		rdVersion.addActionListener(this);
 		horizontalBox.add(rdVersion);
 		
 		versionBox = new JComboBox<String>();
+		populateMinecraftVersions();
 		versionBox.setEnabled(false);
 		versionBox.setMaximumSize(new Dimension(128, versionBox.getPreferredSize().height));
 		horizontalBox.add(versionBox);
@@ -126,16 +120,23 @@ public class NewDialog extends JDialog implements ActionListener {
 		panel.add(btnOk);
 	}
 	
+	private void populateMinecraftVersions() {
+		for (MinecraftVersionList.Version ver : MinecraftVersionList.instance.versions)
+			versionBox.addItem(ver.id);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Version:")) {
-			versionBox.setEnabled(true);
-			modpackField.setEnabled(false);
-			profileType = ProfileType.VANILLA;
-		}
-		else {
-			versionBox.setEnabled(false);
-			modpackField.setEnabled(true);
-			profileType = ProfileType.MODPACK;
+		switch (e.getActionCommand()) {
+			case "Minecraft version:":
+				versionBox.setEnabled(true);
+				modpackField.setEnabled(false);
+				profileType = ProfileType.VANILLA;
+				break;
+			case "Modpack URL:":
+				versionBox.setEnabled(false);
+				modpackField.setEnabled(true);
+				profileType = ProfileType.MODPACK;
+				break;
 		}
 	}
 }
