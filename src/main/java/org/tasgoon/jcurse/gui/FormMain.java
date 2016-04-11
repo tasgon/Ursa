@@ -1,12 +1,12 @@
-package org.tasgo.jcurse.gui;
+package org.tasgoon.jcurse.gui;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Created by Tasgo on 4/10/16.
+ * Created by tasgoon on 4/10/16.
  */
-public class MainForm extends JFrame {
+public class FormMain extends JFrame {
     private JPanel mainPanel;
     private JTable modTable;
     private JTextPane infoPanel;
@@ -16,8 +16,8 @@ public class MainForm extends JFrame {
     private JButton deleteButton;
     private JButton playButton;
 
-    public MainForm() throws HeadlessException {
-        super("MainForm");
+    public FormMain() throws HeadlessException {
+        super("FormMain");
         setContentPane(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
