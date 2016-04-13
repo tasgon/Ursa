@@ -1,6 +1,6 @@
-package org.tasgoon.jcurse
+package org.tasgoon.ursa
 
-import org.tasgoon.jcurse.gui.FormMain
+import org.tasgoon.ursa.gui.FormMain
 import java.awt.EventQueue
 
 object Main {

@@ -1,4 +1,4 @@
-package org.tasgoon.jcurse.data
+package org.tasgoon.ursa.data
 
 import java.sql.Statement
 import java.sql.Connection
@@ -10,6 +10,7 @@ class Database @throws[SQLException]
     connection = DriverManager.getConnection("jdbc:sqlite:" + loc)
     statement = connection.createStatement
     initTable
+
     private var connection: Connection = null
     private var statement: Statement = null
 

@@ -1,14 +1,14 @@
-package org.tasgoon.jcurse.api.minecraft
+package org.tasgoon.ursa.api.minecraft
 
 import java.net.URL
 import java.util
 
 object MinecraftVersionList {
-    //val instance: MinecraftVersionList = getInstance
+    val instance = getInstance("http://s3.amazonaws.com/Minecraft.Download/versions/versions.json")
 
-    val instance: MinecraftVersionList = {
+    def getInstance(url: String): MinecraftVersionList = {
         try {
-            val versionURL = new URL("http://s3.amazonaws.com/Minecraft.Download/versions/versions.json")
+            val versionURL = new URL(url)
             //versionURL.
         }
         catch {
@@ -16,7 +16,7 @@ object MinecraftVersionList {
                 e.printStackTrace
             }
         }
-        null
+        return null
     }
 }
 

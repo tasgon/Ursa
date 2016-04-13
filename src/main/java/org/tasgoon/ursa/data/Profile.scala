@@ -1,4 +1,4 @@
-package org.tasgoon.jcurse.data
+package org.tasgoon.ursa.data
 
 object Profile {
     class ProfileType extends Enumeration {

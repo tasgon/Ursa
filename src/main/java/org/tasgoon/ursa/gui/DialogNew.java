@@ -1,4 +1,4 @@
-package org.tasgoon.jcurse.gui;
+package org.tasgoon.ursa.gui;
 
 import javax.swing.*;
 import java.awt.event.*;

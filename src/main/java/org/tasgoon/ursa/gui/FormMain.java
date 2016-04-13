@@ -1,6 +1,9 @@
-package org.tasgoon.jcurse.gui;
+package org.tasgoon.ursa.gui;
+
+import org.tasgoon.ursa.data.ModTableModel;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 
 /**
@@ -15,11 +18,17 @@ public class FormMain extends JFrame {
     private JButton editButton;
     private JButton deleteButton;
     private JButton playButton;
+    private JSplitPane splitter;
 
     public FormMain() throws HeadlessException {
-        super("FormMain");
+        super("Ursa");
         setContentPane(mainPanel);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
+
+        splitter.setDividerLocation(0.7);
+        splitter.setResizeWeight(1.0);
+
+        modTable.setModel(new ModTableModel());
     }
 }

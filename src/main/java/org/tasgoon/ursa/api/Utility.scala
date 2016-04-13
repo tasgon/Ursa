@@ -1,4 +1,4 @@
-package org.tasgoon.jcurse.api
+package org.tasgoon.ursa.api
 
 import java.io.IOException
 import java.net.URL
