@@ -9,6 +9,6 @@ import com.google.gson.JsonSyntaxException
 object Utility {
     @throws[JsonSyntaxException]
     @throws[IOException]
-    def urlToJson[T](url: URL, classOfT: Class[T]) {
+    def jsonURLtoClass[T](url: URL, classOfT: Class[T]) {
     }
 }

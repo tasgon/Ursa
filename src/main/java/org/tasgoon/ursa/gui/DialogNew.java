@@ -7,8 +7,13 @@ public class DialogNew extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField textField1;
+    private JRadioButton radioButton1;
+    private JRadioButton radioButton2;
+    private JComboBox comboBox1;
 
-    public DialogNew() {
+    public DialogNew(JFrame parent) {
+        super();
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -39,6 +44,8 @@ public class DialogNew extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        pack();
     }
 
     private void onOK() {
@@ -49,12 +56,5 @@ public class DialogNew extends JDialog {
     private void onCancel() {
 // add your code here if necessary
         dispose();
-    }
-
-    public static void main(String[] args) {
-        DialogNew dialog = new DialogNew();
-        dialog.pack();
-        dialog.setVisible(true);
-        System.exit(0);
     }
 }

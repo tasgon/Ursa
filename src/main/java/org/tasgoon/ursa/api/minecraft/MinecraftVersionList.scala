@@ -1,34 +1,27 @@
 package org.tasgoon.ursa.api.minecraft
 
-import java.net.URL
 import java.util
 
-object MinecraftVersionList {
-    val instance = getInstance("http://s3.amazonaws.com/Minecraft.Download/versions/versions.json")
+import com.google.gson.annotations.SerializedName
 
-    def getInstance(url: String): MinecraftVersionList = {
-        try {
-            val versionURL = new URL(url)
-            //versionURL.
-        }
-        catch {
-            case e: Any => {
-                e.printStackTrace
-            }
-        }
-        return null
-    }
-}
+/**
+  * Created by tasgoon on 4/19/16.
+  */
 
 class MinecraftVersionList {
-
     class Version {
         var id: String = null
         var time: String = null
         var releaseTime: String = null
-        var `type`: String = null
+        @SerializedName("type") var profileType: String = null
+        var url: String = null
     }
 
-    var latest: util.Map[String, String] = null
-    var versions: util.List[MinecraftVersionList#Version] = null
+    class Latest {
+        var snapshot: String = null
+        var release: String = null
+    }
+
+    var latest: Latest = null
+    var versions: util.List[Version] = null
 }
