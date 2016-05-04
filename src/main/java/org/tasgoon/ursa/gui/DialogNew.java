@@ -1,5 +1,9 @@
 package org.tasgoon.ursa.gui;
 
+import org.tasgoon.ursa.api.minecraft.MinecraftVersionList;
+import org.tasgoon.ursa.api.minecraft.MinecraftVersionManager;
+import org.tasgoon.ursa.api.minecraft.Version;
+
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -10,7 +14,7 @@ public class DialogNew extends JDialog {
     private JTextField textField1;
     private JRadioButton radioButton1;
     private JRadioButton radioButton2;
-    private JComboBox comboBox1;
+    private JComboBox versions;
 
     public DialogNew(JFrame parent) {
         super();
@@ -44,6 +48,10 @@ public class DialogNew extends JDialog {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+
+        for (Version version: MinecraftVersionManager.instance().versions()) {
+            versions.addItem(version.id());
+        }
 
         pack();
     }
