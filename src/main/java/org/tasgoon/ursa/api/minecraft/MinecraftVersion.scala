@@ -1,14 +1,11 @@
 package org.tasgoon.ursa.api.minecraft
 
-import java.util
 
 /**
   * Created by tasgoon on 4/19/16.
   */
 
-case class Version(id: String, time: String, releaseTime: String, versionType: String, url: String)
-case class Latest(snapshot: String, release: String)
-case class MinecraftVersionList(latest: Latest, versions: util.List[Version])
+case class MinecraftVersion(id: String, time: String, releaseTime: String, versionType: String, url: String)
 
 /*class MinecraftVersionList {
     class Version {

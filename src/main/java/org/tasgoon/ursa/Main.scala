@@ -8,7 +8,7 @@ object Main {
         EventQueue.invokeLater(new Runnable() {
             def run {
                 try {
-                    val frame: FormMain = new FormMain
+                    val frame = new FormMain
                     frame.setVisible(true)
                 }
                 catch {

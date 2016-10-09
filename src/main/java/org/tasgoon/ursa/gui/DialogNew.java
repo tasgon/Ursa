@@ -1,8 +1,8 @@
 package org.tasgoon.ursa.gui;
 
-import org.tasgoon.ursa.api.minecraft.MinecraftVersionList;
+import org.tasgoon.ursa.api.minecraft.MinecraftVersion;
 import org.tasgoon.ursa.api.minecraft.MinecraftVersionManager;
-import org.tasgoon.ursa.api.minecraft.Version;
+import scala.collection.Iterator;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -49,8 +49,9 @@ public class DialogNew extends JDialog {
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        for (Version version: MinecraftVersionManager.instance().versions()) {
-            versions.addItem(version.id());
+        Iterator<MinecraftVersion> versionList = MinecraftVersionManager.versions().iterator();
+        while (versionList.hasNext()) {
+            versions.addItem(versionList.next().id());
         }
 
         pack();

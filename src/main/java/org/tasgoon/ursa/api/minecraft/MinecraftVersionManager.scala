@@ -7,20 +7,21 @@ import net.liftweb.json._
 import scala.io.Source
 
 object MinecraftVersionManager {
-    val instance = getInstance("https://launchermeta.mojang.com/mc/game/version_manifest.json")
     implicit val formats = DefaultFormats
+    var versions: List[MinecraftVersion] = _
+    populateVersions("https://launchermeta.mojang.com/mc/game/version_manifest.json")
 
-    def getInstance(url: String): MinecraftVersionList = {
+    def populateVersions(url: String) = {
         try {
             val data = Source.fromURL(new URL(url)).mkString.replaceAll("\"type\"", "\"versionType\"")
-            //print(data)
-            return parse(data).extract[MinecraftVersionList]
+            val json = parse(data)
+            println(json \ "versions")
+            versions = (json \ "versions").extract[List[MinecraftVersion]]
         }
         catch {
             case e: Any => {
                 e.printStackTrace
             }
         }
-        return null
     }
 }
