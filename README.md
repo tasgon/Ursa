@@ -1,2 +1,2 @@
 # Ursa
-Cross-platform Curseforge Minecraft client written in Java.
+Cross-platform Curseforge Minecraft client written in ~~Java~~Scala.
